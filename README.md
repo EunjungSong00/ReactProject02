@@ -59,17 +59,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 * !뒤에 1을 적으면 해당 snippet을 위한 import가 함께 세팅됩니다.
 
-## \TODO & FIXME (재연 2021.10.18)
-
-개발 시 필요한 작업들을 리스트로 관리해줄수 있는 주석 방법입니다.
-
-1. 해야할 작업이 있는 부분에
-   // \TODO: 할 일
-   이라고 작성합니다.
-2. 고쳐야하는 작업이 있는 부분에
-   // \FIXME: 고칠 부분
-   이라고 작성합니다.
-3. intelliJ) 하단 툴바에서 TODO탭을 통해 작업들을 관리할 수 있습니다.
-4. vscode) extention에서 todo tree를 설치 후 User > ... > Library > Application Support > Code > User > setting.json 에서 스타일을 설정합니다(선택). 이 때 todo tree가 잘 안된다면 vscode version을 확인해주세요.
 
 
