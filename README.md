@@ -37,7 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## [Carmerce custom]
 
-## -snippets for vscode (재연 2021.10.18) https://react.vlpt.us/basic/27-useful-tools.html#snippet
+## -snippets for vscode  https://react.vlpt.us/basic/27-useful-tools.html#snippet
 
 개발 시 자주 쓰이는 코드 조각들의 작성을 빠르게 쓸 수 있도록 하는 단축키입니다.
 
