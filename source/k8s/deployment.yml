@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: PROJECT_NAME-deployment
+spec:
+  selector:
+    matchLabels:
+      app: PROJECT_NAME
+  replicas: 2
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: PROJECT_NAME
+    spec:
+      containers:
+        - name: PROJECT_NAME
+          image: gcr.io/handle-304204/PROJECT_NAME:TAG_VERSION
+          imagePullPolicy: Always
+          ports:
+            - containerPort: PROJECT_PORT
+          env:
+            - name: NEXT_PUBLIC_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: carmerce-partner-config
+                  key: next_public_api_url
+            - name: NEXT_PUBLIC_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: carmerce-partner-config
+                  key: next_public_name
+            - name: NEXT_PUBLIC_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: carmerce-partner-config
+                  key: next_public_domain

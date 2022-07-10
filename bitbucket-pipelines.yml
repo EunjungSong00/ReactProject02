@@ -1,0 +1,97 @@
+test: &test
+  step:
+    name: build
+    image: node:lts-alpine
+    script:
+      - npm install
+      - npm run build
+
+docker-build: &docker-build
+  step:
+    name: docker-build
+    image: google/cloud-sdk:latest
+    script:
+      - set -x
+      - set -e
+      - echo $HANDLE_GCLOUD_KEY_FILE | base64 -d > ./gcloud-api-key.json
+      - export TAG_VERSION=1.0.$BITBUCKET_BUILD_NUMBER
+      - export IMAGE_NAME=$GCLOUD_HOSTNAME/$HANDLE_GCLOUD_PROJECT_ID/$PROJECT_NAME:$TAG_VERSION
+      - gcloud auth activate-service-account $HANDLE_GCLOUD_SERVICE_USER --key-file=gcloud-api-key.json
+      - gcloud config set account $HANDLE_GCLOUD_SERVICE_USER
+      - gcloud config set project $HANDLE_GCLOUD_PROJECT_ID
+      - gcloud auth configure-docker
+      - docker build -t $IMAGE_NAME .
+      - docker push $IMAGE_NAME
+    services:
+      - docker
+
+deploy-gke-legacy: &deploy-gke-legacy
+  script:
+    - env
+    - export TAG_VERSION=1.0.$BITBUCKET_BUILD_NUMBER
+    - sed -i s/PROJECT_NAME/$PROJECT_NAME/g $RESOURCE_PATH
+    - sed -i s/PROJECT_PORT/$PROJECT_PORT/g $RESOURCE_PATH
+    - sed -i s/TAG_VERSION/$TAG_VERSION/g $RESOURCE_PATH
+    - sed -i s/NAMESPACE_NAME/prod/g $RESOURCE_PATH
+    - pipe: atlassian/google-gke-kubectl-run:2.1.0
+      variables:
+        KEY_FILE: $HANDLE_GCLOUD_KEY_FILE
+        PROJECT: $HANDLE_GCLOUD_PROJECT_ID
+        COMPUTE_ZONE: $GCLOUD_ZONE
+        CLUSTER_NAME: $CLUSTER_NAME
+        KUBECTL_COMMAND: 'apply'
+        RESOURCE_PATH: $RESOURCE_PATH
+
+deploy-gke: &deploy-gke
+  script:
+    - source <(curl -s http://gcp-private-api.carmerce.co.kr/handle/pipeline/env/bitbucket/$BITBUCKET_DEPLOYMENT_ENVIRONMENT)
+    - curl http://gcp-private-api.carmerce.co.kr/handle/pipeline/env/bitbucket/key/$BITBUCKET_DEPLOYMENT_ENVIRONMENT -o gcloud-api-key.json
+    - KEY_FILE_STRING=$(base64 gcloud-api-key.json)
+    - env
+    - export RESOURCE_PATH=k8s/deployment.yaml
+    - export TAG_VERSION=1.0.$BITBUCKET_BUILD_NUMBER
+    - sed -i s/PROJECT_NAME/$PROJECT_NAME/g $RESOURCE_PATH
+    - sed -i s/PROJECT_PORT/$PROJECT_PORT/g $RESOURCE_PATH
+    - sed -i s/TAG_VERSION/$TAG_VERSION/g $RESOURCE_PATH
+    - sed -i s/NAMESPACE_NAME/$BITBUCKET_DEPLOYMENT_ENVIRONMENT/g $RESOURCE_PATH
+    - pipe: atlassian/google-gke-kubectl-run:2.1.0
+      variables:
+        KEY_FILE: $KEY_FILE_STRING
+        PROJECT: $HANDLE_PROJECT_ID
+        COMPUTE_ZONE: $HANDLE_ZONE
+        CLUSTER_NAME: $HANDLE_PUBLIC_CLUSTER
+        KUBECTL_COMMAND: 'apply'
+        RESOURCE_PATH: $RESOURCE_PATH
+
+pipelines:
+  branches:
+    main:
+      - <<: *test
+      - <<: *docker-build
+      - step:
+          <<: *deploy-gke
+          deployment: stage
+          name: deploy-stage
+      - parallel:
+          - step:
+              <<: *deploy-gke
+              trigger: manual
+              deployment: prod
+              name: deploy-prod
+          - step:
+              <<: *deploy-gke-legacy
+              trigger: manual
+              deployment: prod-legacy
+              name: deploy-prod-legacy
+    develop:
+      - <<: *test
+      - <<: *docker-build
+      - step:
+          <<: *deploy-gke
+          deployment: dev
+          name: deploy-dev
+
+definitions:
+  services:
+    docker:
+      memory: 2048

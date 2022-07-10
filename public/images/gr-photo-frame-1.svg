@@ -1,0 +1,11 @@
+<svg width="222" height="147" viewBox="0 0 222 147" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#F9FAFA" d="M0 0h222v147H0z"/>
+        <path stroke="#979797" stroke-dasharray="2" d="m1.5 144.5 217-141"/>
+        <path stroke="#FD3636" d="M.5.5h221v146H.5z"/>
+        <path fill="#FD3636" d="M0 0h30v20H0z"/>
+        <text font-family="SpoqaHanSansNeo-Regular, Spoqa Han Sans Neo" font-size="11" fill="#FFF">
+                        <tspan x="5.38" y="14">필수</tspan>
+                    </text>
+    </g>
+</svg>

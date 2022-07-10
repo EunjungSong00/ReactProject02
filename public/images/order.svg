@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic / order</title>
+    <g id="ic-/-order" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6" transform="translate(2.000000, 2.500000)">
+            <rect id="Rectangle" fill="#686A6B" x="0" y="0" width="16" height="15" rx="2"></rect>
+            <g id="Group-5" transform="translate(3.040000, 3.000000)" fill="#FFFFFF">
+                <g id="Group-2">
+                    <path d="M4.16835861,0 L9.64943289,0 C10.0737917,0 10.4177915,0.341046875 10.4177915,0.76171875 C10.4177915,1.18239062 10.0737917,1.5234375 9.64943289,1.5234375 L4.16835861,1.5234375 C3.74399983,1.5234375 3.4,1.18239062 3.4,0.76171875 C3.4,0.341046875 3.74399983,0 4.16835861,0 Z" id="Path"></path>
+                    <rect id="Rectangle" stroke="#FFFFFF" x="0" y="0" width="1.52" height="1.52" rx="0.76"></rect>
+                </g>
+                <g id="Group-3" transform="translate(0.000000, 3.740000)">
+                    <path d="M4.16835861,0 L9.64943289,0 C10.0737917,0 10.4177915,0.341046875 10.4177915,0.76171875 C10.4177915,1.18239062 10.0737917,1.5234375 9.64943289,1.5234375 L4.16835861,1.5234375 C3.74399983,1.5234375 3.4,1.18239062 3.4,0.76171875 C3.4,0.341046875 3.74399983,0 4.16835861,0 Z" id="Path"></path>
+                    <rect id="Rectangle" stroke="#FFFFFF" x="0" y="0" width="1.52" height="1.52" rx="0.76"></rect>
+                </g>
+                <g id="Group-4" transform="translate(0.000000, 7.480000)">
+                    <path d="M4.16835861,0 L9.64943289,0 C10.0737917,0 10.4177915,0.341046875 10.4177915,0.76171875 C10.4177915,1.18239062 10.0737917,1.5234375 9.64943289,1.5234375 L4.16835861,1.5234375 C3.74399983,1.5234375 3.4,1.18239062 3.4,0.76171875 C3.4,0.341046875 3.74399983,0 4.16835861,0 Z" id="Path"></path>
+                    <rect id="Rectangle" stroke="#FFFFFF" x="0" y="0" width="1.52" height="1.52" rx="0.76"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
